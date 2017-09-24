@@ -5,11 +5,7 @@
  * IMPORTANT: Give a high level description of your code here. You
  * must also provide a header comment at the beginning of each
  * function that describes what that function does.
-<<<<<<< HEAD
- */  
-=======
  */ 
->>>>>>> c92e6045a99685e41522b1ab5f35130f16ad6416
 
 #include "csapp.h"
 
@@ -45,11 +41,7 @@ int HandlerFunction ( int connfd );
  * Mutex Declaration
  */
 
-<<<<<<< HEAD
 pthread_mutex_t ConnectionMutex, LogFileMutex;
-=======
-pthread_mutex_t ConnectionMutex;
->>>>>>> c92e6045a99685e41522b1ab5f35130f16ad6416
 
 /*
  * Global Declaration
@@ -70,7 +62,6 @@ int main(int argc, char **argv)
     pthread_t thread1, thread2, thread3, thread4;	/* Thread Declaration */
     
 
-
     /* Check arguments */
     if (argc != 2) {
 	fprintf(stderr, "Usage: %s <port number>\n", argv[0]);
@@ -87,15 +78,10 @@ int main(int argc, char **argv)
     port = atoi(argv[1]);
     listenfd = Open_listenfd(port);
 
-<<<<<<< HEAD
     /* Inititialize Log File */
-=======
-    /* Inititialize */
->>>>>>> c92e6045a99685e41522b1ab5f35130f16ad6416
     log_file = Fopen(PROXY_LOG, "a");
 
     /* Initialize threads */
-
     pthread_create(&thread1, NULL, &AcceptFunction, NULL); 
     pthread_create(&thread2, NULL, &AcceptFunction, NULL);
     pthread_create(&thread3, NULL, &AcceptFunction, NULL);
@@ -112,7 +98,7 @@ int main(int argc, char **argv)
 void *AcceptFunction( void *empty){
     /* Wait for and process client connections */
 
-    int connfd;                     /* socket desciptor for talkign wiht client*/ 
+    int connfd;                     /* socket desciptor for talking with client */ 
     while (1) { 
 	clientlen = sizeof(clientaddr);  
 	pthread_mutex_lock(&ConnectionMutex);
@@ -124,14 +110,9 @@ void *AcceptFunction( void *empty){
 
 
 int HandlerFunction( int connfd ){
-
-<<<<<<< HEAD
 /*
 HandlerFunction: Used by process/thread to handle the request sent in from the web browser.  HandlerFunction parses the request and uses the new request to receive a web page from the web server and send it back to the web browser.
 */
-
-=======
->>>>>>> c92e6045a99685e41522b1ab5f35130f16ad6416
     int serverfd;                   /* Socket descriptor for talking with end server */
     char *request;                  /* HTTP request from client */
     char *request_uri;              /* Start of URI in first HTTP request header line */
@@ -216,11 +197,6 @@ HandlerFunction: Used by process/thread to handle the request sent in from the w
 	return 1;
     }
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> c92e6045a99685e41522b1ab5f35130f16ad6416
     /*
      * Make sure that the HTTP version field follows the URI 
      */
@@ -284,26 +260,15 @@ HandlerFunction: Used by process/thread to handle the request sent in from the w
      * Log the request to disk
      */
     format_log_entry(log_entry, &clientaddr, request_uri, response_len);  
-<<<<<<< HEAD
     pthread_mutex_lock(&LogFileMutex); // Log File Synchronization
     fprintf(log_file, "%s %d\n", log_entry, response_len);
     pthread_mutex_unlock(&LogFileMutex);
-=======
-    fprintf(log_file, "%s %d\n", log_entry, response_len);
->>>>>>> c92e6045a99685e41522b1ab5f35130f16ad6416
     fflush(log_file);
 
     /* Clean up to avoid memory leaks and then return */
     close(connfd);
     close(serverfd);
     free(request);
-<<<<<<< HEAD
-=======
-
-    /* Control never reaches here */
-//    exit(0);
-
->>>>>>> c92e6045a99685e41522b1ab5f35130f16ad6416
 }
 
 
